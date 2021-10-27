@@ -43,7 +43,7 @@ class TvDatafeed:
         contents = dict(
             token=token,
             date=self.token_date,
-            chromedriver_path=self.chromedriver_path,
+            chromedriver_path= '/Users/lenovo/Desktop/Tv/chromedriver.exe',
         )
 
         with open(tokenfile, "wb") as f:
@@ -91,31 +91,7 @@ class TvDatafeed:
             os.mkdir(self.profile_dir)
             logger.debug("created chrome user dir")
 
-    def __install_chromedriver(self):
-
-        os.system("pip install chromedriver-autoinstaller")
-
-        import chromedriver_autoinstaller
-
-        path = chromedriver_autoinstaller.install(cwd=True)
-
-        if path is not None:
-            self.chromedriver_path = os.path.join(
-                self.path, "chromedriver" + ".exe" if ".exe" in path else ""
-            )
-            shutil.copy(path, self.chromedriver_path)
-            self.__save_token(token=None)
-
-            try:
-                time.sleep(1)
-                os.remove(path)
-            except:
-                logger.info(
-                    f"unable to remove file '{path}', you may want to remove it manually"
-                )
-
-        else:
-            logger.error(" unable to download chromedriver automatically.")
+ 
 
     def clear_cache(self):
 
